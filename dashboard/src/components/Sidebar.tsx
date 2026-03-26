@@ -64,9 +64,6 @@ export default function Sidebar({ events, lifecycleEvents }: Props) {
   // Timeline chart: group events by hour
   const timelineData = buildTimeline(lifecycleEvents)
 
-  // Unique departments
-  const depts = new Set(lifecycleEvents.map((e) => e.department).filter(Boolean))
-
   return (
     <div className="space-y-4">
       {/* RBAC Config */}
@@ -78,7 +75,7 @@ export default function Sidebar({ events, lifecycleEvents }: Props) {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Departments</span>
-            <span className="text-gray-300 font-mono">{depts.size}</span>
+            <span className="text-gray-300 font-mono">8</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Role overrides</span>
