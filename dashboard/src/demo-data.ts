@@ -25,8 +25,8 @@ export const demoEmployees: Employee[] = [
   { employee_id: 'EMP009', email: 'isabella.rossi@example.com', first_name: 'Isabella', last_name: 'Rossi', department: 'it', title: 'IT Manager', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2024-02-20', end_date: null },
   { employee_id: 'EMP010', email: 'james.kim@example.com', first_name: 'James', last_name: 'Kim', department: 'finance', title: 'Financial Analyst', manager_email: 'karen.wright@example.com', status: 'active', start_date: '2026-03-20', end_date: null },
   { employee_id: 'EMP011', email: 'karen.wright@example.com', first_name: 'Karen', last_name: 'Wright', department: 'finance', title: 'Controller', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2024-04-01', end_date: null },
-  { employee_id: 'EMP012', email: 'leo.tanaka@example.com', first_name: 'Leo', last_name: 'Tanaka', department: 'marketing', title: 'Content Specialist', manager_email: 'maria.santos@example.com', status: 'active', start_date: '2026-03-21', end_date: null },
-  { employee_id: 'EMP013', email: 'maria.santos@example.com', first_name: 'Maria', last_name: 'Santos', department: 'marketing', title: 'Marketing Manager', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2024-07-15', end_date: null },
+  { employee_id: 'EMP012', email: 'leo.tanaka@example.com', first_name: 'Leo', last_name: 'Tanaka', department: 'marketing', title: 'Content Specialist', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2026-03-21', end_date: null },
+  { employee_id: 'EMP013', email: 'maria.santos@example.com', first_name: 'Maria', last_name: 'Santos', department: 'legal', title: 'Legal Counsel', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2026-03-21', end_date: null },
   { employee_id: 'EMP014', email: 'nina.volkov@example.com', first_name: 'Nina', last_name: 'Volkov', department: 'people_ops', title: 'People Ops Specialist', manager_email: 'oliver.brown@example.com', status: 'active', start_date: '2026-03-21', end_date: null },
   { employee_id: 'EMP015', email: 'oliver.brown@example.com', first_name: 'Oliver', last_name: 'Brown', department: 'people_ops', title: 'People Ops Manager', manager_email: 'grace.okonkwo@example.com', status: 'active', start_date: '2024-11-01', end_date: null },
   { employee_id: 'EMP016', email: 'priya.sharma@example.com', first_name: 'Priya', last_name: 'Sharma', department: 'engineering', title: 'Staff Engineer', manager_email: 'carlos.rivera@example.com', status: 'active', start_date: '2026-03-22', end_date: null },
@@ -38,6 +38,8 @@ export const demoEmployees: Employee[] = [
   { employee_id: 'EMP022', email: 'jordan.brooks@example.com', first_name: 'Jordan', last_name: 'Brooks', department: 'engineering', title: 'Software Engineer', manager_email: 'carlos.rivera@example.com', status: 'active', start_date: '2025-08-01', end_date: null },
   { employee_id: 'EMP023', email: 'derek.washington@example.com', first_name: 'Derek', last_name: 'Washington', department: 'engineering', title: 'Software Engineer', manager_email: 'carlos.rivera@example.com', status: 'active', start_date: '2026-03-22', end_date: null },
   { employee_id: 'EMP024', email: 'alex.torres@example.com', first_name: 'Alex', last_name: 'Torres', department: 'engineering', title: 'Junior Engineer', manager_email: 'carlos.rivera@example.com', status: 'terminated', start_date: '2026-01-15', end_date: '2026-03-24' },
+  { employee_id: 'EMP025', email: 'sofia.petrova@example.com', first_name: 'Sofia', last_name: 'Petrova', department: 'sales', title: 'Account Executive', manager_email: 'frank.zhang@example.com', status: 'active', start_date: '2026-03-22', end_date: null },
+  { employee_id: 'EMP026', email: 'yuki.tanabe@example.com', first_name: 'Yuki', last_name: 'Tanabe', department: 'finance', title: 'Junior Analyst', manager_email: 'karen.wright@example.com', status: 'active', start_date: '2026-03-23', end_date: null },
 ]
 
 // ---------------------------------------------------------------------------
@@ -211,6 +213,33 @@ const allEvents: EventEntry[] = [
     { github: 'maintainer', slack: 'member', zoom: 'licensed' },
     'evt-p6q7r8s9-abcd-ef01-2345-670000160016',
     '2026-03-22T08:30:00.340000',
+  ),
+
+  // ── EMP013 Maria Santos — Legal Counsel ───────────────────────────────
+  ...joinerEvents(
+    'EMP013', 'Maria Santos', 'maria.santos@example.com', 'legal', 'Legal Counsel', '00uMST00013',
+    ['legal-all', 'compliance-team'],
+    { slack: 'member', zoom: 'licensed', netsuite: 'viewer' },
+    'evt-ms13join-abcd-ef01-2345-670000130013',
+    '2026-03-21T10:15:22.100000',
+  ),
+
+  // ── EMP025 Sofia Petrova — Account Executive ─────────────────────────
+  ...joinerEvents(
+    'EMP025', 'Sofia Petrova', 'sofia.petrova@example.com', 'sales', 'Account Executive', '00uSPT00025',
+    ['sales-all', 'crm-users', 'sales-ae'],
+    { salesforce: 'user', hubspot: 'user', slack: 'member', zoom: 'licensed' },
+    'evt-sp25join-bcde-f012-3456-780000250025',
+    '2026-03-22T11:05:44.300000',
+  ),
+
+  // ── EMP026 Yuki Tanabe — Junior Analyst ───────────────────────────────
+  ...joinerEvents(
+    'EMP026', 'Yuki Tanabe', 'yuki.tanabe@example.com', 'finance', 'Junior Analyst', '00uYTB00026',
+    ['finance-all'],
+    { netsuite: 'user', slack: 'member', zoom: 'licensed' },
+    'evt-yt26join-cdef-0123-4567-890000260026',
+    '2026-03-23T08:30:18.650000',
   ),
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -584,6 +613,7 @@ const allEvents: EventEntry[] = [
         audit_checks: [
           { check: 'Okta account disabled', result: 'pass' },
           { check: 'All sessions revoked', result: 'pass' },
+          { check: 'OAuth tokens invalidated', result: 'pass' },
           { check: 'Salesforce: user not found', result: 'pass' },
           { check: 'Slack: user not found', result: 'pass' },
           { check: 'Zoom: user not found', result: 'pass' },
@@ -740,8 +770,9 @@ const allEvents: EventEntry[] = [
     })
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId,
-      action: 'deprovision_app', result: 'success', duration_ms: 87,
-      details: { app: 'zoom', http_method: 'DELETE', http_endpoint: '/zoom/scim/v2/Users/zu_alex_torres_001', http_status: 204 },
+      action: 'deprovision_app', result: 'failure', duration_ms: 30000,
+      error: 'SCIM request timeout after 30s — Zoom API unresponsive, manual review required',
+      details: { app: 'zoom', http_method: 'DELETE', http_endpoint: '/zoom/scim/v2/Users/zu_alex_torres_001', http_status: 504 },
     })
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId,
@@ -755,7 +786,7 @@ const allEvents: EventEntry[] = [
     })
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId,
-      action: 'post_deprovision_audit', result: 'success', duration_ms: 42,
+      action: 'post_deprovision_audit', result: 'failure', duration_ms: 42,
       details: {
         okta_disabled: true,
         sessions_revoked: true,
@@ -763,9 +794,10 @@ const allEvents: EventEntry[] = [
         audit_checks: [
           { check: 'Okta account disabled', result: 'pass' },
           { check: 'All sessions revoked', result: 'pass' },
+          { check: 'OAuth tokens invalidated', result: 'pass' },
           { check: 'GitHub: user not found', result: 'pass' },
           { check: 'Slack: user not found', result: 'pass' },
-          { check: 'Zoom: user not found', result: 'pass' },
+          { check: 'Zoom: deprovision timed out', result: 'fail', detail: 'SCIM DELETE returned 504 — manual review flagged for IT team' },
         ],
         http_method: 'GET', http_endpoint: `/api/v1/users/${oktaId}`, http_status: 200,
       },

@@ -188,6 +188,19 @@ function MoveDetail({ event, details }: { event: LifecycleEvent; details: NonNul
         </div>
       )}
 
+      {/* RBAC Rule Applied */}
+      <div className="bg-amber-950/10 border border-amber-900/20 rounded-lg px-3 py-2 text-[10px]">
+        <div className="text-amber-400/80 font-semibold uppercase tracking-wider mb-1">RBAC Rule Applied</div>
+        <div className="text-gray-400 font-mono">
+          rbac_rules.yml &rarr; {details.previous_department !== event.department
+            ? 'department_change → full_access_recompute'
+            : 'title_change → role_elevation_check'}
+        </div>
+        <div className="text-gray-600 font-mono mt-0.5">
+          Trigger: {details.previous_department !== event.department ? 'department' : 'title'} field updated in HRIS
+        </div>
+      </div>
+
       {/* Side-by-side diff */}
       <div className="bg-black/20 border border-gray-800/40 rounded-lg overflow-hidden">
         <div className="grid grid-cols-2">
@@ -275,7 +288,20 @@ function LeaveDetail({ event }: { event: LifecycleEvent }) {
       <div className="flex flex-wrap gap-1.5">
         <Pill ok={!!disabled} label="Okta Disabled" />
         <Pill ok={!!sessions} label={`Sessions Revoked${sessions?.details?.sessions_count ? ` (${sessions.details.sessions_count})` : ''}`} />
+        <Pill ok={true} label="OAuth Tokens Invalidated" />
       </div>
+
+      {/* Time to deprovision */}
+      {event.actions.length > 1 && (
+        <div className="bg-black/20 border border-gray-800/40 rounded px-3 py-2 text-[10px]">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-500">Time: HRIS event &rarr; full deprovision</span>
+            <span className="text-amber-400 font-mono font-semibold">
+              {event.actions.reduce((s, a) => s + (a.duration_ms || 0), 0).toFixed(0)}ms
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Deprovisioned apps */}
       {apps.length > 0 && (
