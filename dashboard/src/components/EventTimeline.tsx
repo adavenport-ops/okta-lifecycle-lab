@@ -1,10 +1,10 @@
 import type { LifecycleEvent } from '../types'
 
-const TYPE_STYLES: Record<string, { bg: string; text: string; border: string; label: string }> = {
-  join: { bg: 'bg-green-950/40', text: 'text-green-400', border: 'border-green-800/60', label: 'Joiner' },
-  move: { bg: 'bg-amber-950/30', text: 'text-amber-400', border: 'border-amber-800/60', label: 'Mover' },
-  leave: { bg: 'bg-red-950/30', text: 'text-red-400', border: 'border-red-800/60', label: 'Leaver' },
-  audit: { bg: 'bg-purple-950/30', text: 'text-purple-400', border: 'border-purple-800/60', label: 'Audit' },
+const TYPE_STYLES: Record<string, { bg: string; text: string; border: string; selectedBorder: string; label: string }> = {
+  join: { bg: 'bg-green-950/40', text: 'text-green-400', border: 'border-green-800/60', selectedBorder: 'border-l-green-400', label: 'Joiner' },
+  move: { bg: 'bg-amber-950/30', text: 'text-amber-400', border: 'border-amber-800/60', selectedBorder: 'border-l-amber-400', label: 'Mover' },
+  leave: { bg: 'bg-red-950/30', text: 'text-red-400', border: 'border-red-800/60', selectedBorder: 'border-l-red-400', label: 'Leaver' },
+  audit: { bg: 'bg-purple-950/30', text: 'text-purple-400', border: 'border-purple-800/60', selectedBorder: 'border-l-purple-400', label: 'Audit' },
 }
 
 const ACTION_LABELS: Record<string, string> = {
@@ -53,7 +53,7 @@ export default function EventTimeline({ events, onSelectEvent, onSelectUser, sel
             className={`
               ${style.bg} border ${style.border} rounded-lg p-3 cursor-pointer
               transition-all duration-150
-              ${isSelected ? 'ring-1 ring-amber-400/50' : 'hover:brightness-125'}
+              ${isSelected ? `ring-1 ring-amber-400/50 border-l-2 ${style.selectedBorder}` : 'hover:brightness-125'}
             `}
           >
             <div className="flex items-start justify-between gap-3">

@@ -73,7 +73,7 @@ function joinerEvents(
       event_id: eventId,
       event_type: 'join',
       employee_id: empId,
-      action: 'add_to_group',
+      action: 'add_group',
       result: 'success',
       duration_ms: 55 + (group.length % 45),
       details: { group },
@@ -86,7 +86,7 @@ function joinerEvents(
       event_id: eventId,
       event_type: 'join',
       employee_id: empId,
-      action: 'scim_provision',
+      action: 'provision_app',
       result: 'success',
       duration_ms: 95 + (app.length * 11) % 85,
       details: { app, role },
@@ -191,21 +191,22 @@ const allEvents: EventEntry[] = [
 
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId,
-      action: 'compute_access_diff', result: 'success', duration_ms: 88,
+      action: 'compute_diff', result: 'success', duration_ms: 88,
       details: {
+        employee_name: "Tara O'Connell", email: 'tara.oconnell@example.com', department: 'engineering', title: 'Software Engineer',
         groups_to_add: ['eng-all', 'github-org-members'],
         groups_to_remove: ['mkt-all'],
         apps_to_provision: { github: 'developer', zoom: 'licensed' },
         apps_to_deprovision: ['hubspot', 'figma'],
       },
     })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 62, details: { group: 'mkt-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_to_group', result: 'success', duration_ms: 58, details: { group: 'eng-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_to_group', result: 'success', duration_ms: 61, details: { group: 'github-org-members' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 110, details: { app: 'hubspot' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 105, details: { app: 'figma' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_provision', result: 'success', duration_ms: 130, details: { app: 'github', role: 'developer' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_provision', result: 'success', duration_ms: 98, details: { app: 'zoom', role: 'licensed' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 62, details: { group: 'mkt-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_group', result: 'success', duration_ms: 58, details: { group: 'eng-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_group', result: 'success', duration_ms: 61, details: { group: 'github-org-members' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 110, details: { app: 'hubspot' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 105, details: { app: 'figma' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'provision_app', result: 'success', duration_ms: 130, details: { app: 'github', role: 'developer' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'provision_app', result: 'success', duration_ms: 98, details: { app: 'zoom', role: 'licensed' } })
 
     return entries
   })(),
@@ -220,23 +221,24 @@ const allEvents: EventEntry[] = [
 
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId,
-      action: 'compute_access_diff', result: 'success', duration_ms: 92,
+      action: 'compute_diff', result: 'success', duration_ms: 92,
       details: {
+        employee_name: 'Victor Huang', email: 'victor.huang@example.com', department: 'product', title: 'Senior Product Manager',
         groups_to_add: ['product-all', 'product-leads', 'exec-team'],
         groups_to_remove: ['eng-all', 'github-org-members', 'eng-senior', 'on-call-rotation'],
         apps_to_provision: { figma: 'editor' },
         apps_to_deprovision: ['github'],
       },
     })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 59, details: { group: 'eng-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 64, details: { group: 'github-org-members' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 57, details: { group: 'eng-senior' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 63, details: { group: 'on-call-rotation' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_to_group', result: 'success', duration_ms: 55, details: { group: 'product-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_to_group', result: 'success', duration_ms: 60, details: { group: 'product-leads' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_to_group', result: 'success', duration_ms: 58, details: { group: 'exec-team' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 115, details: { app: 'github' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'scim_provision', result: 'success', duration_ms: 125, details: { app: 'figma', role: 'editor' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 59, details: { group: 'eng-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 64, details: { group: 'github-org-members' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 57, details: { group: 'eng-senior' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 63, details: { group: 'on-call-rotation' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_group', result: 'success', duration_ms: 55, details: { group: 'product-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_group', result: 'success', duration_ms: 60, details: { group: 'product-leads' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'add_group', result: 'success', duration_ms: 58, details: { group: 'exec-team' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 115, details: { app: 'github' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'move', employee_id: empId, action: 'provision_app', result: 'success', duration_ms: 125, details: { app: 'figma', role: 'editor' } })
 
     return entries
   })(),
@@ -250,17 +252,17 @@ const allEvents: EventEntry[] = [
     let i = 0
     const entries: EventEntry[] = []
 
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'disable_user', result: 'success', duration_ms: 134 })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'disable_user', result: 'success', duration_ms: 134, details: { employee_name: 'Rachel Green', email: 'rachel.green@example.com', department: 'sales', title: 'Sales Rep' } })
     entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'revoke_sessions', result: 'success', duration_ms: 78 })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 112, details: { app: 'salesforce' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 96, details: { app: 'slack' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 89, details: { app: 'zoom' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 101, details: { app: 'hubspot' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 55, details: { group: 'sales-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 52, details: { group: 'crm-users' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 112, details: { app: 'salesforce' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 96, details: { app: 'slack' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 89, details: { app: 'zoom' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 101, details: { app: 'hubspot' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 55, details: { group: 'sales-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 52, details: { group: 'crm-users' } })
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId,
-      action: 'audit_check', result: 'success', duration_ms: 45,
+      action: 'post_deprovision_audit', result: 'success', duration_ms: 45,
       details: {
         okta_disabled: true,
         sessions_revoked: true,
@@ -280,16 +282,16 @@ const allEvents: EventEntry[] = [
     let i = 0
     const entries: EventEntry[] = []
 
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'disable_user', result: 'success', duration_ms: 128 })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'disable_user', result: 'success', duration_ms: 128, details: { employee_name: 'Samuel Jackson', email: 'samuel.jackson@example.com', department: 'it', title: 'IT Support Specialist' } })
     entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'revoke_sessions', result: 'success', duration_ms: 82 })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 105, details: { app: 'slack' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 92, details: { app: 'zoom' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'scim_deprovision', result: 'success', duration_ms: 118, details: { app: 'github' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 58, details: { group: 'it-all' } })
-    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_from_group', result: 'success', duration_ms: 54, details: { group: 'okta-admins' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 105, details: { app: 'slack' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 92, details: { app: 'zoom' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'deprovision_app', result: 'success', duration_ms: 118, details: { app: 'github' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 58, details: { group: 'it-all' } })
+    entries.push({ timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId, action: 'remove_group', result: 'success', duration_ms: 54, details: { group: 'okta-admins' } })
     entries.push({
       timestamp: ts[i++], event_id: eventId, event_type: 'leave', employee_id: empId,
-      action: 'audit_check', result: 'success', duration_ms: 41,
+      action: 'post_deprovision_audit', result: 'success', duration_ms: 41,
       details: {
         okta_disabled: true,
         sessions_revoked: true,

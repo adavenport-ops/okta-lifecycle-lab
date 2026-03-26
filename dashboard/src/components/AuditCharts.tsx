@@ -24,7 +24,11 @@ export default function AuditCharts({ events, lifecycleEvents }: Props) {
     acc[e.event_type] = (acc[e.event_type] || 0) + 1
     return acc
   }, {})
-  const pieData = Object.entries(typeCounts).map(([name, value]) => ({ name, value }))
+  const pieData = Object.entries(typeCounts).map(([name, value]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    value,
+    key: name,
+  }))
 
   const actionCounts = events.reduce<Record<string, number>>((acc, e) => {
     const label = ACTION_SHORT[e.action] || e.action
@@ -42,20 +46,21 @@ export default function AuditCharts({ events, lifecycleEvents }: Props) {
         <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-3">Events by Type</h3>
         {pieData.length > 0 ? (
           <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
+            <PieChart margin={{ left: 20, right: 20 }}>
               <Pie
                 data={pieData}
                 dataKey="value"
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                innerRadius={45}
-                outerRadius={75}
+                innerRadius={40}
+                outerRadius={65}
                 strokeWidth={0}
                 label={({ name, value }) => `${name} (${value})`}
+                labelLine={false}
               >
                 {pieData.map((entry) => (
-                  <Cell key={entry.name} fill={TYPE_COLORS[entry.name] || '#6b7280'} />
+                  <Cell key={entry.name} fill={TYPE_COLORS[entry.key] || '#6b7280'} />
                 ))}
               </Pie>
               <Tooltip {...TOOLTIP_STYLE} />

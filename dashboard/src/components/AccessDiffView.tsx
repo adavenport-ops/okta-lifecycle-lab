@@ -17,17 +17,27 @@ export default function AccessDiffView({ event }: Props) {
   const isMove = event.event_type === 'move' && diffAction?.details
   const isLeave = event.event_type === 'leave'
   const isJoin = event.event_type === 'join'
+  const totalMs = event.actions.reduce((s, a) => s + (a.duration_ms || 0), 0)
 
   return (
-    <div className="bg-gray-900/80 border border-gray-800 rounded-lg overflow-hidden">
-      <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+    <div className="bg-gray-900/80 border border-gray-800 rounded-lg overflow-hidden max-h-[600px] flex flex-col">
+      <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between shrink-0">
         <h3 className="text-sm font-semibold text-gray-300">
           {isMove ? 'Access Diff' : isLeave ? 'Deprovisioned Access' : 'Provisioned Access'}
         </h3>
         <span className="text-xs text-gray-500 font-mono">{event.employee_name} / {event.employee_id}</span>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 overflow-y-auto">
+        {/* Employee info + timing */}
+        <div className="flex items-center justify-between text-xs text-gray-500">
+          <span>{event.department}{event.title ? ` · ${event.title}` : ''}</span>
+          <span className="font-mono">
+            {totalMs > 0 ? `${totalMs.toFixed(0)}ms` : ''}{' '}
+            {event.timestamp ? formatTs(event.timestamp) : ''}
+          </span>
+        </div>
+
         {isMove && diffAction?.details && <MoveDiff details={diffAction.details} />}
         {isJoin && <JoinView event={event} />}
         {isLeave && <LeaveView event={event} />}
@@ -168,12 +178,14 @@ function LeaveView({ event }: { event: LifecycleEvent }) {
   const apps = event.actions.filter((a) => a.action === 'deprovision_app').map((a) => a.details?.app).filter(Boolean) as string[]
   const disabled = event.actions.some((a) => a.action === 'disable_user' && a.result === 'success')
   const sessions = event.actions.some((a) => a.action === 'revoke_sessions' && a.result === 'success')
+  const auditPassed = event.actions.some((a) => a.action === 'post_deprovision_audit' && a.result === 'success')
 
   return (
     <>
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-2">
         <StatusPill ok={disabled} label="Okta Disabled" />
         <StatusPill ok={sessions} label="Sessions Revoked" />
+        <StatusPill ok={auditPassed} label="Audit Passed" />
       </div>
       {groups.length > 0 && (
         <div>
@@ -201,6 +213,12 @@ function LeaveView({ event }: { event: LifecycleEvent }) {
       )}
     </>
   )
+}
+
+function formatTs(ts: string): string {
+  if (!ts) return ''
+  const t = ts.includes('T') ? ts.split('T')[1] : ts
+  return t?.slice(0, 8) || ''
 }
 
 function StatusPill({ ok, label }: { ok: boolean; label: string }) {
