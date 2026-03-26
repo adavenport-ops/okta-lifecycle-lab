@@ -8,8 +8,8 @@ import UserCard from './components/UserCard'
 import type { LifecycleEvent } from './types'
 
 export default function App() {
-  const { events, connected } = useSSE()
-  const employees = useEmployees()
+  const { events, connected, demoMode } = useSSE()
+  const employees = useEmployees(demoMode)
   const lifecycleEvents = useMemo(() => groupEvents(events), [events])
 
   const [selectedEvent, setSelectedEvent] = useState<LifecycleEvent | null>(null)
@@ -33,8 +33,16 @@ export default function App() {
               {lifecycleEvents.length} lifecycle events &middot; {events.length} actions
             </span>
             <div className="flex items-center gap-1.5">
-              <span className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'}`} />
-              <span className="text-[11px] text-gray-500">{connected ? 'Live' : 'Disconnected'}</span>
+              {demoMode ? (
+                <span className="px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400 text-[10px] font-semibold tracking-wide border border-amber-400/20">
+                  Demo · Static Data
+                </span>
+              ) : (
+                <>
+                  <span className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className="text-[11px] text-gray-500">{connected ? 'Live' : 'Disconnected'}</span>
+                </>
+              )}
             </div>
           </div>
         </div>
