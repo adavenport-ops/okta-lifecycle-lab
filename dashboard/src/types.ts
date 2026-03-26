@@ -4,7 +4,7 @@ export interface EventEntry {
   event_type: 'join' | 'move' | 'leave' | 'audit'
   employee_id: string
   action: string
-  result: string
+  result: 'success' | 'failure' | 'retry'
   duration_ms?: number
   error?: string
   details?: {
@@ -16,14 +16,29 @@ export interface EventEntry {
     group?: string
     app?: string
     role?: string
+    http_method?: string
+    http_endpoint?: string
+    http_status?: number
     groups_to_add?: string[]
     groups_to_remove?: string[]
     apps_to_provision?: Record<string, string>
     apps_to_deprovision?: string[]
     okta_disabled?: boolean
     sessions_revoked?: boolean
+    sessions_count?: number
     apps_deprovisioned?: Record<string, boolean>
+    previous_department?: string
+    previous_title?: string
+    scim_user_id?: string
+    retry_count?: number
+    audit_checks?: AuditCheck[]
   }
+}
+
+export interface AuditCheck {
+  check: string
+  result: 'pass' | 'fail'
+  detail?: string
 }
 
 export interface Employee {
