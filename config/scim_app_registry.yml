@@ -1,0 +1,85 @@
+apps:
+  slack:
+    display_name: Slack
+    scim_endpoint: http://localhost:5001/slack/scim/v2
+    supports:
+      - users
+      - groups
+    supported_roles:
+      - member
+      - admin
+
+  github:
+    display_name: GitHub Enterprise
+    scim_endpoint: http://localhost:5001/github/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - developer
+      - maintainer
+      - admin
+
+  zoom:
+    display_name: Zoom
+    scim_endpoint: http://localhost:5001/zoom/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - basic
+      - licensed
+
+  google_workspace:
+    display_name: Google Workspace
+    scim_endpoint: http://localhost:5001/gws/scim/v2
+    supports:
+      - users
+      - groups
+    supported_roles:
+      - user
+      - admin
+
+  figma:
+    display_name: Figma
+    scim_endpoint: http://localhost:5001/figma/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - viewer
+      - editor
+      - admin
+
+  salesforce:
+    display_name: Salesforce
+    scim_endpoint: http://localhost:5001/salesforce/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - standard_user
+      - admin
+
+  hubspot:
+    display_name: HubSpot
+    scim_endpoint: http://localhost:5001/hubspot/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - user
+      - admin
+
+  netsuite:
+    display_name: NetSuite
+    scim_endpoint: http://localhost:5001/netsuite/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - analyst
+      - admin
+
+  rippling:
+    display_name: Rippling
+    scim_endpoint: http://localhost:5001/rippling/scim/v2
+    supports:
+      - users
+    supported_roles:
+      - user
+      - admin

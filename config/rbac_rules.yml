@@ -1,0 +1,156 @@
+departments:
+  engineering:
+    okta_groups:
+      - eng-all
+      - github-org-members
+    apps:
+      github: developer
+      slack: member
+      zoom: licensed
+      google_workspace: user
+    titles:
+      "Senior Engineer":
+        additional_groups:
+          - eng-senior
+          - on-call-rotation
+        additional_apps:
+          github: maintainer
+      "Staff Engineer":
+        additional_groups:
+          - eng-senior
+          - on-call-rotation
+          - architecture-review
+        additional_apps:
+          github: maintainer
+      "Engineering Manager":
+        additional_groups:
+          - eng-leads
+          - people-managers
+        additional_apps:
+          github: admin
+
+  product:
+    okta_groups:
+      - product-all
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: user
+      figma: editor
+    titles:
+      "Senior Product Manager":
+        additional_groups:
+          - product-leads
+        additional_apps:
+          figma: admin
+      "VP Product":
+        additional_groups:
+          - product-leads
+          - executive-team
+        additional_apps:
+          figma: admin
+
+  people_ops:
+    okta_groups:
+      - people-ops-all
+      - hris-admins
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: user
+      rippling: admin
+    titles:
+      "People Ops Manager":
+        additional_groups:
+          - people-managers
+        additional_apps: {}
+
+  sales:
+    okta_groups:
+      - sales-all
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: user
+      salesforce: standard_user
+    titles:
+      "Account Executive":
+        additional_groups:
+          - sales-closers
+        additional_apps:
+          salesforce: standard_user
+      "Sales Manager":
+        additional_groups:
+          - sales-leads
+          - people-managers
+        additional_apps:
+          salesforce: admin
+      "VP Sales":
+        additional_groups:
+          - sales-leads
+          - executive-team
+        additional_apps:
+          salesforce: admin
+
+  marketing:
+    okta_groups:
+      - marketing-all
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: user
+      hubspot: user
+    titles:
+      "Marketing Manager":
+        additional_groups:
+          - marketing-leads
+          - people-managers
+        additional_apps:
+          hubspot: admin
+      "Content Specialist":
+        additional_groups: []
+        additional_apps:
+          figma: viewer
+
+  finance:
+    okta_groups:
+      - finance-all
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: user
+      netsuite: analyst
+    titles:
+      "Finance Manager":
+        additional_groups:
+          - finance-leads
+          - people-managers
+        additional_apps:
+          netsuite: admin
+      "Controller":
+        additional_groups:
+          - finance-leads
+          - executive-team
+        additional_apps:
+          netsuite: admin
+
+  it:
+    okta_groups:
+      - it-all
+      - okta-admins
+    apps:
+      slack: member
+      zoom: licensed
+      google_workspace: admin
+      github: admin
+    titles:
+      "IT Manager":
+        additional_groups:
+          - it-leads
+          - people-managers
+        additional_apps: {}
+      "Security Engineer":
+        additional_groups:
+          - security-team
+          - on-call-rotation
+        additional_apps: {}

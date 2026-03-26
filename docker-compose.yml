@@ -1,0 +1,49 @@
+services:
+  mock-scim:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m mock_scim.server
+    ports:
+      - "5001:5001"
+    environment:
+      - SCIM_HOST=0.0.0.0
+      - SCIM_PORT=5001
+      - EVENT_LOG_PATH=/app/data/event_log.jsonl
+      - SAMPLE_DATA_PATH=/app/config/sample_hris_data.json
+    volumes:
+      - event-data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: lifecycle-lab run --mode sim --serve
+    depends_on:
+      mock-scim:
+        condition: service_healthy
+    environment:
+      - ENGINE_MODE=sim
+      - EVENT_LOG_PATH=/app/data/event_log.jsonl
+    volumes:
+      - event-data:/app/data
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5001
+        - VITE_SSE_URL=http://localhost:5001/events
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mock-scim
+
+volumes:
+  event-data:
